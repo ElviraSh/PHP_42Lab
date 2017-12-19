@@ -1,73 +1,99 @@
 <?php
+if (file_exists('index.ini')) {
 
-$indexINI = parse_ini_file('index.ini', true);
+    $indexINI = parse_ini_file('index.ini', true);
 
-$first_symbol = $indexINI['first_rule']['symbol'];
-$second_symbol = $indexINI['second_rule']['symbol'];
-$third_symbol = $indexINI['third_rule']['symbol'];
-$first_rule = $indexINI['first_rule']['upper'];
-$second_rule = $indexINI['second_rule']['direction'];
-$third_rule = $indexINI['third_rule']['delete'];
+    $fp = file("index.ini");
+    $ff = file("text.txt");
+    if (count($fp) == 0 or count($ff) == 0) {
+        print ("файл пуст");
+    } else {
 
-$indexFile = fopen($indexINI['main']['filename'], 'r');
+        $first_symbol = $indexINI['first_rule']['symbol'];
+        $second_symbol = $indexINI['second_rule']['symbol'];
+        $third_symbol = $indexINI['third_rule']['symbol'];
+        $first_rule = $indexINI['first_rule']['upper'];
+        $second_rule = $indexINI['second_rule']['direction'];
+        $third_rule = $indexINI['third_rule']['delete'];
 
-while (!feof($indexFile)) {
-    $string = fgets($indexFile);
-    $rule = substr($string, 0, 3);
-    $string = trim(substr($string, 3));
-
-
-    if ($rule == $first_symbol) {
-
-        if ($first_rule == "true") {
-            $string = strtoupper($string);
-        }
-
-        if ($first_rule == "false") {
-            $string = strtolower($string);
-        }
-        print ($string . "<br>");
+        if (file_exists($indexINI['main']['filename'])) {
+            $indexFile = fopen($indexINI['main']['filename'], 'r');
 
 
-    } if ($rule != $first_symbol)
+            while (!feof($indexFile)) {
+                $string = fgets($indexFile);
+                $rule = substr($string, 0, 3);
+                $string = trim(substr($string, 3));
 
-        if ($rule == $second_symbol) {
-            if ($second_rule == '+') {
-                for ($i = 0; $i < strlen($string); $i++) {
 
-                    if ($string[$i] >= "0" && $string[$i] != "9") {
-                        $temp = intval($string[$i]);
-                        $string[$i] = $temp + 1;
-                        continue;
+                if ($rule == $first_symbol) {
 
+                    if ($first_rule == "true") {
+                        $string = strtoupper($string);
                     }
-                        if ($string[$i] == "9") {
-                        $string[$i] = "0";
-                        continue;
+
+                    if ($first_rule == "false") {
+                        $string = strtolower($string);
                     }
+                    /*print ($string . "<br>");*/
+                    print ($string . "\n");
+
+
                 }
-            } if ($second_rule != '+') {
-                for ($i = 0; $i < strlen($string); $i++) {
-                    if ($string[$i] > "0" && $string[$i] <= "9") {
-                        $temp = intval($string[$i]);
-                        $string[$i] = --$temp;
-                        continue;
+                if ($rule != $first_symbol)
+
+                    if ($rule == $second_symbol) {
+                        if ($second_rule == '+') {
+                            for ($i = 0; $i < strlen($string); $i++) {
+
+                                if ($string[$i] >= "0" && $string[$i] != "9") {
+                                    $temp = intval($string[$i]);
+                                    $string[$i] = $temp + 1;
+                                    continue;
+
+                                }
+                                if ($string[$i] == "9") {
+                                    $string[$i] = "0";
+                                    continue;
+                                }
+                            }
+                        }
+                        if ($second_rule != '+') {
+                            for ($i = 0; $i < strlen($string); $i++) {
+                                if ($string[$i] > "0" && $string[$i] <= "9") {
+                                    $temp = intval($string[$i]);
+                                    $string[$i] = --$temp;
+                                    continue;
+                                }
+                                if ($string[$i] == "0") {
+                                    $string[$i] = "9";
+                                    continue;
+                                }
+                            }
+                        }
+                        /*print ($string . "<br>");*/
+                        print ($string . "\n");
                     }
-                    if ($string[$i] == "0") {
-                        $string[$i] = "9";
-                        continue;
+                if ($rule != $second_symbol)
+
+                    if ($rule == $third_symbol) {
+                        $string = str_replace($third_rule, '', $string);
+                        print ($string . "\n");
+
+
                     }
-                }
+
             }
-            print ($string . "<br>");
-        } if ($rule != $second_symbol)
 
-            if ($rule == $third_symbol) {
-            $string = str_replace($third_rule, '', $string);
-            print ($string . "<br>");
-
+        } else {
+            echo $indexINI['main']['filename'] . ' fail not exists';
 
         }
+    }
+}
+
+else {
+        echo  "index.ini not exists";
 
 
     }
