@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:width="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Logger</title>
+</head>
+<body>
+<form action="index.php" method="post">
+    <label>
+        <input type="radio" name="logger" value="file" required> Файл
+    </label>
+    <label>
+        <input type="radio" name="logger" value="browser" required> Браузер
+    </label>
+
+    <hr align="left" width="300" size="1" color="#000" />
+    <br/>
+
+
+    <textarea name="text" required style="margin: 0px; width: 300px; height: 130px;"></textarea>
+
+    <hr align="left" width="300" size="1" color="#000" />
+    <br/>
+    Название файла  <br>
+    <input type="text" name="file_name" style="margin: 0px; width: 300px;">
+    <br/>
+    <hr align="left" width="300" size="1" color="#000" />
+    <br/>
+    <label>
+        <input type="radio" name="date" value="date_only"> Только время <br>
+    </label>
+    <label>
+        <input type="radio" name="date" value="date_time"> Дата и время <br>
+    </label>
+    <label>
+        <input type="radio" name="date" value="date_off"> Выключено
+    </label>
+    <br/><br/>
+    <input type="submit">
+    <br/><br/>
+</form>
+</body>
+</html>
