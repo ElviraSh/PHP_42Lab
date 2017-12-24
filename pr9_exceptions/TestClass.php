@@ -6,7 +6,7 @@ spl_autoload_register(function ($class) {
 
 
 
-class Main
+class TestClass
 {
     public $company;
     public $department;
