@@ -4,9 +4,17 @@ if (file_exists('index.ini')) {
     $indexINI = parse_ini_file('index.ini', true);
 
     $fp = file("index.ini");
-    $ff = file("text.txt");
-    if (count($fp) == 0 or count($ff) == 0) {
-        print ("файл пуст");
+
+
+
+    if (count(file("index.ini")) == 0 or count(file($indexINI['main']['filename'])) == 0) {
+
+        if (count(file("index.ini")) == 0)
+        print ("index.ini пуст");
+
+        else print ($indexINI['main']['filename'] . " файл пуст");
+
+
     } else {
 
         $first_symbol = $indexINI['first_rule']['symbol'];

@@ -48,8 +48,16 @@ class Complex
 
      function div(Complex $complex): Complex
     {
-        $real = ($this->real * $complex->getreal() + $this->imaginary * $complex->getimaginary()) / ($complex->getreal() * $complex->getreal() + $complex->getimaginary() * $complex->getimaginary());
-        $imaginary = ($this->imaginary * $complex->getreal() - $this->real * $complex->getimaginary()) / ($complex->getreal() * $complex->getreal() + $complex->getimaginary() * $complex->getimaginary());
-        return new Complex($real, $imaginary);
+
+
+        if (($complex->getreal() * $complex->getreal() + $complex->getimaginary() * $complex->getimaginary()) != 0 ){
+            $real = ($this->real * $complex->getreal() + $this->imaginary * $complex->getimaginary()) / ($complex->getreal() * $complex->getreal() + $complex->getimaginary() * $complex->getimaginary());
+            $imaginary = ($this->imaginary * $complex->getreal() - $this->real * $complex->getimaginary()) / ($complex->getreal() * $complex->getreal() + $complex->getimaginary() * $complex->getimaginary());
+
+            return new Complex($real, $imaginary);
+
+        }
+
+        else print ("Введите корректное значение");
     }
 }
